@@ -6,13 +6,13 @@ require __DIR__ . '/vendor/autoload.php';
 
 function test()
 {
-    $descriptorspec = [
+    $descriptorsPec = [
         ['pipe', 'r'],  // 标准输入，子进程从此管道中读取数据
         ['pipe', 'w'],  // 标准输出，子进程向此管道中写入数据
     ];
     $cmd = __DIR__ . '/phpunit -c ' . __DIR__ . '/phpunit.xml';
     $pipes = null;
-    $processHndler = proc_open($cmd, $descriptorspec, $pipes);
+    $processHandler = proc_open($cmd, $descriptorsPec, $pipes);
     $records2 = [];
 
     while (!feof($pipes[1]))
@@ -31,7 +31,7 @@ function test()
 
     do
     {
-        $status = proc_get_status($processHndler);
+        $status = proc_get_status($processHandler);
     } while ($status['running'] ?? false);
 
 
@@ -40,7 +40,7 @@ function test()
     {
         fclose($pipe);
     }
-    proc_close($processHndler);
+    proc_close($processHandler);
 
     if (255 === ($status['exitcode'] ?? 0) && 'OK' === substr($records2[0] ?? '', 0, 2))
     {

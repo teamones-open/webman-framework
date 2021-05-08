@@ -9,8 +9,8 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="HttpServer">
-            <directory>unit/HttpServer</directory>
+        <testsuite name="Route">
+            <directory>unit/Route</directory>
         </testsuite>
     </testsuites>
 </phpunit>
